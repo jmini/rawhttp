@@ -28,7 +28,7 @@ cd site/
 magnanimous -style=solarized-dark -globalctx=_github_global_context || exit 1
 cd ..
 
-mv site/target public
+mv site/target/* public/
 
 if [ "$1" = "-d" ]
 then
