@@ -10,7 +10,7 @@ buildscript {
 plugins {
     id 'java'
     id "org.jetbrains.kotlin.jvm"
-    id 'maven'
+    id 'maven-publish'
 }
 
 description = 'RawHTTP core module'
@@ -63,34 +63,40 @@ artifacts {
 }
 
 // add all the info required by Maven Central to the pom
-configure(install.repositories.mavenInstaller) {
-    pom.project {
-        inceptionYear '2017'
-        name project.name
-        packaging 'jar'
-        description project.description
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                inceptionYear = '2017'
+                name = project.name
+                description = project.description
 
-        url 'https://renatoathaydes.github.io/rawhttp'
+                url = 'https://renatoathaydes.github.io/rawhttp'
 
-        scm {
-            connection 'git@github.com:renatoathaydes/rawhttp.git'
-            developerConnection 'git@github.com:renatoathaydes/rawhttp.git'
-            url 'https://github.com/renatoathaydes/rawhttp'
-        }
+                scm {
+                    connection = 'git@github.com:renatoathaydes/rawhttp.git'
+                    developerConnection = 'git@github.com:renatoathaydes/rawhttp.git'
+                    url = 'https://github.com/renatoathaydes/rawhttp'
+                }
 
-        licenses {
-            license {
-                name 'The Apache License, Version 2.0'
-                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'renatoathaydes'
+                        name = 'Renato Athaydes'
+                        email = 'renato@athaydes.com'
+                    }
+                }
             }
-        }
-
-        developers {
-            developer {
-                id 'renatoathaydes'
-                name 'Renato Athaydes'
-                email 'renato@athaydes.com'
-            }
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
